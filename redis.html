@@ -1,0 +1,214 @@
+<script type="text/javascript">
+    "use strict";
+    /*global RED*/
+    RED.nodes.registerType('contrib-redis-config', {
+        category: 'config',
+        defaults: {
+            host: {
+                value: "{{REDIS_SERVER}}",
+                required: true
+            },
+            port: {
+                value: "{{REDIS_PORT}}",
+                required: true
+            },
+            dbase: {
+                value: "{{REDIS_DB}}",
+                required: true
+            },
+            pass: {
+                value: "{{REDIS_PASSWORD}}",
+                required: false
+            }
+        },
+        label: function() {
+            return this.host + ":" + this.port + "/" + this.dbase;
+        }
+    });
+</script>
+
+<script type="text/x-red" data-template-name="contrib-redis-config">
+    <div class="form-row">
+        <label for="node-config-input-host"><i class="fa fa-globe"></i> Host</label>
+        <input type="text" id="node-config-input-host">
+    </div>
+    <div class="form-row">
+        <label for="node-config-input-port"><i class="fa fa-server"></i> Port</label>
+        <input type="text" id="node-config-input-port">
+    </div>
+    <div class="form-row">
+        <label for="node-config-input-dbase"><i class="fa fa-random"></i> DB</label>
+        <input type="text" id="node-config-input-dbase">
+    </div>
+    <div class="form-row">
+        <label for="node-config-input-pass"><i class="fa fa-lock"></i> Password</label>
+        <input type="password" id="node-config-input-pass">
+    </div>
+</script>
+
+<script type="text/javascript">
+    /*global RED*/
+    RED.nodes.registerType('redis-sub', {
+        category: 'Contrib',
+        inputs:0,
+        outputs: 1,
+        color: "#FFAAAA",
+        icon: "redis.png",
+        paletteLabel: "redis-sub",
+        defaults: {
+            server: {
+                value: "",
+                type: "contrib-redis-config"
+            },
+            name: {
+                value: ""
+            },
+            channel: {
+                value: "",
+                required: true
+            }
+        },
+        label: function() {
+            return this.name || "Contrib Redis Sub";
+        }
+    });
+</script>
+
+<script type="text/x-red" data-template-name="redis-sub">
+    <div class="form-row">
+        <label for="node-input-server"><i class="fa fa-globe"></i> Server</label>
+        <input type="text" id="node-input-server" placeholder="Server">
+    </div>
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+    <div class="form-row">
+        <label for="node-input-channel"><i class="icon-tasks"></i> Channel</label>
+        <input type="text" id="node-input-channel" placeholder="Channel">
+    </div>
+</script>
+
+<script type="text/x-red" data-help-name="redis-sub">
+    <p>Contrib redis sub</p>
+    <p>Acts as subscriber</p>
+    <p>The Channel is channel name.</p>
+    <p>msg.payload = redis.sub(Channel)</p>
+</script>
+
+<script type="text/javascript">
+    /*global RED*/
+    RED.nodes.registerType('redis-pub', {
+        category: 'Contrib',
+        color: "#C0DEED",
+        inputs:1,
+        outputs:0,
+        icon: "redis.png",
+        align: "right",
+        paletteLabel: "redis-pub",
+        defaults: {
+            server: {
+                value: "",
+                type: "contrib-redis-config"
+            },
+            name: {
+                value: ""
+            },
+            channel: {
+                value: "",
+                required: true
+            }
+        },
+        label: function() {
+            return this.name || "Contrib Redis Pub";
+        }
+    });
+</script>
+
+<script type="text/x-red" data-template-name="redis-pub">
+    <div class="form-row">
+        <label for="node-input-server"><i class="fa fa-globe"></i> Server</label>
+        <input type="text" id="node-input-server" placeholder="Server">
+    </div>
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+    <div class="form-row">
+        <label for="node-input-channel"><i class="icon-tasks"></i> Channel</label>
+        <input type="text" id="node-input-channel" placeholder="Channel">
+    </div>
+</script>
+
+<script type="text/x-red" data-help-name="redis-pub">
+    <p>Contrib redis pub</p>
+    <p>Acts as publish</p>
+    <p>The channel is channel name.</p>
+    <p>redis.pub(Channel) = msg.payload</p>
+</script>
+
+<script type="text/javascript">
+    /*global RED*/
+    RED.nodes.registerType('redis-hash', {
+        category: 'Contrib',
+        color: "#FFAAAA",
+        inputs:1,
+        outputs:1,
+        icon: "redis.png",
+        paletteLabel: "redis-hash",
+        defaults: {
+            server: {
+                value: "",
+                type: "contrib-redis-config"
+            },
+            name: {
+                value: ""
+            },
+            hash: {
+                value: "",
+                required: true
+            },
+            key: {
+                value: "",
+                required: true
+            },
+            postfix: {
+                value: ""
+            }
+        },
+        label: function() {
+            return this.name || "Contrib Redis Hash";
+        }
+    });
+</script>
+
+<script type="text/x-red" data-template-name="redis-hash">
+    <div class="form-row">
+        <label for="node-input-server"><i class="fa fa-globe"></i> Server</label>
+        <input type="text" id="node-input-server" placeholder="Server">
+    </div>
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+    <div class="form-row">
+        <label for="node-input-hash"><i class="icon-tasks"></i> Hash</label>
+        <input type="text" id="node-input-hash" placeholder="Hash">
+    </div>
+    <div class="form-row">
+        <label for="node-input-key"><i class="icon-tasks"></i> Key</label>
+        <input type="text" id="node-input-key" placeholder="Key">
+    </div>
+    <div class="form-row">
+        <label for="node-input-postfix"><i class="icon-tasks"></i> Postfix</label>
+        <input type="text" id="node-input-postfix" placeholder="Postfix">
+    </div>
+</script>
+
+<script type="text/x-red" data-help-name="redis-hash">
+    <p>Contrib redis hash map</p>
+    <p>Acts as hash map</p>
+    <p>Add a description field for the payload.</p>
+    <p>The default value for Postfix is Name.</p>
+    <p>msg.payload[Key + Postfix] = redis.hash(Key)</p>
+</script>

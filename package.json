@@ -1,0 +1,28 @@
+{
+    "name": "node-red-contrib-redis",
+    "version": "1.0.0",
+    "description": "Node-Red Node for Redis",
+    "main": "index.js",
+    "private": true,
+    "license": "MIT",
+    "author": "baihr",
+    "keywords": [
+      "node-red",
+      "node",
+      "redis"
+    ],
+    "scripts": {
+      "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "node-red": {
+      "nodes": {
+        "contrib-redis": "redis.js"
+      }
+    },
+    "dependencies": {
+      "mustache": "^3.0.1",
+      "redis": "^2.8.0",
+      "uuid": "^3.3.2"
+    }
+  }
+  
